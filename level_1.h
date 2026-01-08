@@ -2,8 +2,8 @@
 #define LEVEL_1_H
 
 #include <QObject>
-#include <QSoundEffect>//музыка
 #include <random>
+#include "settings.h"
 class Level_1 : public QObject
 {
     Q_OBJECT
@@ -72,6 +72,7 @@ signals:
     void ChangedLaps(int);
     void ChangedTargets(int);
     void finish(int,QString);//сигнал окончания игры
+
 protected:
     void timerEvent(QTimerEvent*);
 private:
@@ -102,13 +103,13 @@ private:
     int targets{};//счетчик собранных целей
     int laps{};//счетчик кругов
     bool newRound=true;//надежный счетчик, что круг новый
-    //музыка
-    QSoundEffect m_coinSound;
+
     bool SoundLoaded=false;//статус загрузки музыки
     //генератор рандома
     std::mt19937 gen;
     bool start=true;//счетчик старта игры
-    int sensitive=0;//коэфициент чувствительности
+    int move=0;//для отсчета до движения квадрата,искуственного замедление
+
 };
 
 #endif // LEVEL_1_H

@@ -4,9 +4,6 @@ Level_1::Level_1(QObject *parent): QObject{parent}, gen(std::random_device{}())
 {//таймер запускает закрытие окна infoDialog в Level_1.qml
     /*Важно.Сначало срабатывает конструктор и только потом появляется связь с qml файлом.
     * Нет смысла сюда грузить сигналы туда или запрашивать данные*/
-    //музыка.Путь и громкость
-    m_coinSound.setSource(QUrl("qrc:/qt/qml/Project_Rectangle_v2/music/coin.wav"));
-    m_coinSound.setVolume(0.2f);
     if(m_Difficulty=="easy"){DELAY=20;}
     else if(m_Difficulty=="medium"){DELAY=15;}
     else if(m_Difficulty=="hard"){DELAY=10;}
@@ -84,7 +81,7 @@ void Level_1::decreaseY(){
 void Level_1::timerEvent(QTimerEvent*e){
     if (start==true){
         new_place_target();emit ChangedTargets(targets);emit ChangedLaps(laps);playCoinSound();start=false;};
-    sensitive=0;//обнуляем каждый цикл,чтобы не копился
+    move=0;//обнуляем каждый цикл,чтобы не копился
 //корректировка местоположения цели на случай изменения размера окна
 changePosition_target();
 emit ChangedRotation(rotation_target);
@@ -349,7 +346,8 @@ void Level_1::killMyTimer(){
 void Level_1::increaseRotation(){
     if(rotation==-90){rotation=0;}
     //исскуственное замедление чувствительности
-    if(sensitive==2){rotation+=5;sensitive=0;}else{sensitive+=1;};
+    int maxsensitive=Settings::sensitive;//берем чувствительность из настроек
+    if(move==maxsensitive){rotation+=5;move=0;}else{move+=1;};
     //rotation+=5;
     changePosition();
     emit ChangedRotation(rotation);
@@ -360,7 +358,8 @@ void Level_1::increaseRotation(){
 void Level_1::decreaseRotation(){
     if(rotation==-90){rotation=0;}
     //исскуственное замедление чувствительности
-    if(sensitive==2){rotation-=5;sensitive=0;}else{sensitive+=1;};
+    int maxsensitive=Settings::sensitive;//берем чувствительность из настроек
+    if(move==maxsensitive){rotation-=5;move=0;}else{move+=1;};
         //rotation+=5;
     changePosition();
     emit ChangedRotation(rotation);
@@ -369,7 +368,7 @@ void Level_1::decreaseRotation(){
 }
 
 void Level_1::playCoinSound(){
-    if (m_coinSound.status() == QSoundEffect::Ready) {
-        m_coinSound.play();
+    if (Settings::m_coinSound.status() == QSoundEffect::Ready) {
+        Settings::m_coinSound.play();
     }
 }

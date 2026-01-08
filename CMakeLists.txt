@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Multimedia)#музыка
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(appProject_Rectangle_v2
@@ -29,6 +31,9 @@ qt_add_qml_module(appProject_Rectangle_v2
 SOURCES level_1.cpp level_1.h
 RESOURCES android/AndroidManifest.xml android/build.gradle android/res/values/libs.xml android/res/xml/qtprovider_paths.xml
 RESOURCES android/AndroidManifest.xml
+SOURCES
+QML_FILES Settings.qml
+SOURCES settings.h settings.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -48,6 +53,8 @@ target_link_libraries(appProject_Rectangle_v2
             Qt6::Core
             Qt6::Multimedia#музыка
 )
+target_link_libraries(appProject_Rectangle_v2 PRIVATE Qt6::Core)
+target_link_libraries(appProject_Rectangle_v2 PRIVATE Qt6::Core)
 include(GNUInstallDirs)
 install(TARGETS appProject_Rectangle_v2
     BUNDLE DESTINATION .

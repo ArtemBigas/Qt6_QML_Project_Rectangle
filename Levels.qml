@@ -9,8 +9,6 @@ Item {
    source:"images/background_levels.png"
    GridLayout{
        anchors.fill: parent
-       Layout.fillHeight: true
-       Layout.fillWidth: true
        columns: 4  // два столбца
        rows: 4     // две строки
        rowSpacing: 5 // пространство между строками

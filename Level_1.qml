@@ -23,7 +23,8 @@ Popup  {
        spacing:10
        Text {
            text:
-        "You play as a red square moving clockwise.Your goal is to match it with the square's image five times in the minimum number of circles and time.
+        "You play as a red square moving clockwise.
+Your goal is to match it with the square's image five times in the minimum number of circles and time.
         Tapping the game board stops the movement. Dragging it up or down rotates the red square, thereby changing its trajectory."
                horizontalAlignment: Text.AlignHCenter
                wrapMode: Text.WordWrap
@@ -297,7 +298,7 @@ ColumnLayout{
                                  GradientStop { position: 1.0; color: "darkgreen" }
                              }
                                 }
-           onClicked: { stackView.push("Levels.qml")}
+           onClicked: { stackView.push("Levels.qml");level_1Obj.killMyTimer()}
            // Анимация уменьшения при нажатии
                               onPressed: {
                                   pressAnim_return.to = 0.9    // уменьшаем до 90%
@@ -321,5 +322,6 @@ ColumnLayout{
                                           property: "scale"
                                           duration: 150
                                           easing.type: Easing.InOutQuad
-}}}}}
+}}
+}}}
 }

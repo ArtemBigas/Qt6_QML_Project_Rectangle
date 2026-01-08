@@ -1,10 +1,11 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-
+import settings
 Item {
     id:mainMenu
     anchors.fill: parent
+    Settings{id:settingsObj}//начальная настройка volume и sensitive
     Image{
     anchors.fill: parent
 source:"images/background.png"
@@ -12,8 +13,6 @@ source:"images/background.png"
 ColumnLayout{
     //все пространство занимает колонна
     anchors.fill: parent
-    Layout.fillHeight: true
-    Layout.fillWidth: true
     spacing:5
     Button{
     id:play
@@ -66,7 +65,7 @@ ColumnLayout{
             easing.type: Easing.InOutQuad
         }}
 
-    /*Button{
+    Button{
     id:setting
     //привязали все размеры к размеру окна, поэтому при увеличении размера окна,увеличиваются и объекты
     //размеры
@@ -74,7 +73,7 @@ ColumnLayout{
     Layout.preferredHeight: parent.height/6
     Layout.preferredWidth: parent.height/3
     hoverEnabled:false  // отключить стилизацию наведения
-    Text{text:"Setting(in progress)";font.pixelSize:22;color:"red";anchors.centerIn: parent;font.family: "Verdana"}
+    Text{text:"Settings";font.pixelSize:22;color:"red";anchors.centerIn: parent;font.family: "Verdana"}
     background: Rectangle {
            id: btnBg_setting
            anchors.fill: parent
@@ -94,9 +93,9 @@ ColumnLayout{
             releaseAnim_setting.to = 1.0  // возвращаем обратно
             releaseAnim_setting.start()
         }
-
-
-        //onClicked: {}
+        onClicked: {
+            stackView.push("Settings.qml")
+        }
 
     // Анимации
         NumberAnimation {
@@ -112,7 +111,8 @@ ColumnLayout{
             property: "scale"
             duration: 150
             easing.type: Easing.InOutQuad
-        }}*/
+        }
+    }
 
    /* Button{
     id:highscores
